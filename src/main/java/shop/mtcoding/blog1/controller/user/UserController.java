@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "user/hello";
+    @GetMapping("joinForm")
+    public String joinForm() {
+        return "user/joinForm";
     }
 }
