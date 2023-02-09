@@ -18,14 +18,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("joinForm")
+    @GetMapping("/joinForm")
     public String joinForm() {
         return "user/joinForm";
     }
 
-    @PostMapping("join")
+    @PostMapping("/join")
     public String join(JoinReqDto joinReqDto) {
         userService.회원가입(joinReqDto);
-        return "";
+        return "redirect:/loginForm";
+    }
+
+    @GetMapping("/loginForm")
+    public String loginForm() {
+        return "user/loginForm";
     }
 }
