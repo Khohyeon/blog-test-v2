@@ -28,10 +28,11 @@ public class UserService {
         }
     }
 
-    public void 로그인(LoginReqDto loginReqDto) {
+    public User 로그인(LoginReqDto loginReqDto) {
         User result = userRepository.findByUsernameAndPassword(loginReqDto.getUsername(), loginReqDto.getPassword());
         if (result == null) {
             throw new CustomException("로그인 실패");
         }
-    };
+        return result;
+    }
 }

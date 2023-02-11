@@ -1,4 +1,6 @@
-package shop.mtcoding.blog1.controller.user;
+package shop.mtcoding.blog1.controller;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.blog1.dto.user.UserReq.JoinReqDto;
+import shop.mtcoding.blog1.dto.user.UserReq.LoginReqDto;
+import shop.mtcoding.blog1.model.User;
 import shop.mtcoding.blog1.model.UserRepository;
 import shop.mtcoding.blog1.service.UserService;
 
@@ -17,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/joinForm")
     public String joinForm() {
@@ -35,8 +42,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login() {
-        userService.로그인();
-        return "";
+    public String login(LoginReqDto loginReqDto) {
+        User principal = userService.로그인(loginReqDto);
+        session.setAttribute("principal", principal);
+        return "redirect:board/";
     }
 }
