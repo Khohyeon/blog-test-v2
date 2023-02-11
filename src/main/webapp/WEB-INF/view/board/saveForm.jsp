@@ -33,7 +33,7 @@
                     alert(res.msg);
                     location.href = "/board";
                 }).fail((err) => {    // 40x , 50x 일때
-                    console.log(err);
+                    // console.log(err);
                     alert(err.responseJSON.msg);
                 });
             }

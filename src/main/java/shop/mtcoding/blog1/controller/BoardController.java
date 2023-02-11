@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import shop.mtcoding.blog1.dto.ResponseDto;
 import shop.mtcoding.blog1.dto.board.BoardReq.BoardSaveReqDto;
+import shop.mtcoding.blog1.handler.ex.CustomApiException;
 import shop.mtcoding.blog1.model.BoardRepository;
 import shop.mtcoding.blog1.model.User;
 import shop.mtcoding.blog1.service.BoardService;
@@ -38,11 +40,24 @@ public class BoardController {
         return "board/saveForm";
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody BoardSaveReqDto boardSaveReqDto) {
+    @PostMapping("/board")
+    public @ResponseBody ResponseEntity<?> save(@RequestBody BoardSaveReqDto BoardSaveReqDto) {
         User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            throw new CustomApiException("인증이 되지 않았습니다", HttpStatus.UNAUTHORIZED);
+        }
+        if (BoardSaveReqDto.getTitle() == null || BoardSaveReqDto.getTitle().isEmpty()) {
+            throw new CustomApiException("title을 작성해주세요");
+        }
+        if (BoardSaveReqDto.getContent() == null || BoardSaveReqDto.getContent().isEmpty()) {
+            throw new CustomApiException("content를 작성해주세요");
+        }
+        if (BoardSaveReqDto.getTitle().length() > 100) {
+            throw new CustomApiException("title의 길이가 100자 이하여야 합니다");
+        }
 
-        boardService.글쓰기(boardSaveReqDto, principal.getId());
+        boardService.글쓰기(BoardSaveReqDto, principal.getId());
+
         return new ResponseEntity<>(new ResponseDto<>(1, "글쓰기 성공", null), HttpStatus.CREATED);
     }
 
