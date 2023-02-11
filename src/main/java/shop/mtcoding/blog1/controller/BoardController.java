@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import shop.mtcoding.blog1.dto.board.BoardReq.BoardSaveReqDto;
 import shop.mtcoding.blog1.model.BoardRepository;
 import shop.mtcoding.blog1.service.BoardService;
 
@@ -33,8 +34,8 @@ public class BoardController {
     }
 
     @PostMapping("/save")
-    public String save() {
-        boardService.글쓰기();
+    public String save(BoardSaveReqDto boardSaveReqDto) {
+        boardService.글쓰기(boardSaveReqDto);
         return "";
     }
 
