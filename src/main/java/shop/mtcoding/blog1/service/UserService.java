@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.blog1.dto.user.UserReq.JoinReqDto;
+import shop.mtcoding.blog1.dto.user.UserReq.LoginReqDto;
 import shop.mtcoding.blog1.handler.ex.CustomException;
 import shop.mtcoding.blog1.model.User;
 import shop.mtcoding.blog1.model.UserRepository;
@@ -27,7 +28,10 @@ public class UserService {
         }
     }
 
-    public void 로그인() {
-        int result = userRepository.findByUsernameAndPassword(null, null);
+    public void 로그인(LoginReqDto loginReqDto) {
+        User result = userRepository.findByUsernameAndPassword(loginReqDto.getUsername(), loginReqDto.getPassword());
+        if (result == null) {
+            throw new CustomException("로그인 실패");
+        }
     };
 }
