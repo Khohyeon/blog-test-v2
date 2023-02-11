@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import shop.mtcoding.blog1.dto.board.BoardResp.BoardDetailRespDto;
+
 import shop.mtcoding.blog1.dto.board.BoardResp.BoardMainRespDto;
 
 @Mapper

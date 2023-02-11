@@ -23,4 +23,5 @@ public class BoardResp {
         private int userId;
         private String content;
     }
+
 }
