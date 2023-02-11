@@ -55,11 +55,10 @@
                     type: "delete",
                     url: "/board/" + id,
                     dataType: "json"
-                }).done((res) => {    // 20x 일때
+                }).done((res) => {   
                     alert(res.msg);
                     location.href = "/";
-                }).fail((err) => {    // 40x , 50x 일때
-                    // console.log(err);
+                }).fail((err) => {    
                     alert(err.responseJSON.msg);
                 });
                 }
