@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.blog1.dto.board.BoardReq.BoardSaveReqDto;
+import shop.mtcoding.blog1.dto.board.BoardReq.BoardUpdateRespDto;
 import shop.mtcoding.blog1.handler.ex.CustomApiException;
 import shop.mtcoding.blog1.model.Board;
 import shop.mtcoding.blog1.model.BoardRepository;
@@ -49,6 +50,24 @@ public class BoardService {
         } catch (Exception e) {
             throw new CustomApiException("서버에 일시적인 문제가 생겼습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 
+        }
+    }
+
+    @Transactional
+    public void 게시글수정(int id, BoardUpdateRespDto boardUpdateRespDto, int principalId) {
+        Board boardPS = boardRepository.findById(id);
+        if (boardPS == null) {
+            throw new CustomApiException("해당 게시물을 찾을 수 없습니다.");
+        }
+        if (boardPS.getUserId() != principalId) {
+            throw new CustomApiException("해당 게시글을 수정할 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        String thumbnail = HtmlPaser.getThumnail(boardUpdateRespDto.getContent());
+
+        int result = boardRepository.updateById(id, boardUpdateRespDto.getTitle(), boardUpdateRespDto.getContent(),
+                thumbnail);
+        if (result != 1) {
+            throw new CustomApiException("게시글 수정에 실패하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
