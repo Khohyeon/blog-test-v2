@@ -17,6 +17,27 @@
         </div>
 
         <script>
+         function save() {
+                let data = {
+                    "title": $("#title").val(),
+                    "content": $("#content").val()
+                };
+                // console.log(data.title);
+                $.ajax({
+                    type: "post",
+                    url: "/board",
+                    data: JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: "json"  // default : 응답의 mime 타입으로 유추함
+                }).done((res) => {    // 20x 일때
+                    console.log(res);
+                    alert(res.msg);
+                    location.href = "/board";
+                }).fail((err) => {    // 40x , 50x 일때
+                    console.log(err);
+                    alert(err.responseJSON.msg);
+                });
+            }
             $('.summernote').summernote({
                 tabsize: 2,
                 height: 400
