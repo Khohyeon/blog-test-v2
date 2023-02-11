@@ -49,4 +49,19 @@
             </div>
         </div>
 
+        <script>
+            function deleteById(id) {
+                $.ajax({
+                    type: "delete",
+                    url: "/board/" + id,
+                    dataType: "json"
+                }).done((res) => {    // 20x 일때
+                    alert(res.msg);
+                    location.href = "/";
+                }).fail((err) => {    // 40x , 50x 일때
+                    // console.log(err);
+                    alert(err.responseJSON.msg);
+                });
+                }
+        </script>
         <%@ include file="../layout/footer.jsp" %>
