@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.blog1.dto.board.BoardReq.BoardSaveReqDto;
-import shop.mtcoding.blog1.handler.ex.CustomException;
+import shop.mtcoding.blog1.handler.ex.CustomApiException;
 import shop.mtcoding.blog1.model.BoardRepository;
 import shop.mtcoding.blog1.util.HtmlPaser;
 
@@ -29,7 +29,7 @@ public class BoardService {
         int result = boardRepository.insert(boardSaveReqDto.getTitle(), boardSaveReqDto.getContent(),
                 thumbnail, userId);
         if (result != 1) {
-            throw new CustomException("글쓰기 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomApiException("글쓰기 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
