@@ -35,7 +35,7 @@ public class BoardController {
 
     @PostMapping("/save")
     public String save(BoardSaveReqDto boardSaveReqDto) {
-        boardService.글쓰기(boardSaveReqDto);
+        // boardService.글쓰기(boardSaveReqDto);
         return "";
     }
 
