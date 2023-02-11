@@ -33,4 +33,10 @@ public class UserController {
     public String loginForm() {
         return "user/loginForm";
     }
+
+    @PostMapping("/login")
+    public String login() {
+        userService.로그인();
+        return "";
+    }
 }

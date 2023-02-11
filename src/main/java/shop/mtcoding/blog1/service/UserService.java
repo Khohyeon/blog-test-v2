@@ -25,5 +25,9 @@ public class UserService {
         if (result != 1) {
             throw new CustomException("회원가입실패");
         }
+    }
+
+    public void 로그인() {
+        int result = userRepository.findByUsernameAndPassword(null, null);
     };
 }
