@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import shop.mtcoding.blog1.dto.board.BoardReq.BoardUpdateRespDto;
 import shop.mtcoding.blog1.dto.board.BoardResp;
 import shop.mtcoding.blog1.model.User;
 
@@ -66,6 +67,29 @@ public class BoardControllerTest {
 
         mockSession = new MockHttpSession();
         mockSession.setAttribute("principal", user);
+    }
+
+    @Test
+    public void update_test() throws Exception {
+        // given
+        int id = 1;
+        BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto();
+        boardUpdateRespDto.setTitle("제목1-수정");
+        boardUpdateRespDto.setContent("내용1-수정");
+
+        String requestBody = om.writeValueAsString(boardUpdateRespDto);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc.perform(
+                put("/board/1/update")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .session(mockSession));
+
+        // then
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(jsonPath("$.code").value(1));
     }
 
     @Test
