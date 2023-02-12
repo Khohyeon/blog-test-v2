@@ -53,6 +53,21 @@
         </div>
 
         <script>
+            function deleteByReplyId(id) {
+                $.ajax({
+                    type: "delete",
+                    url: "/reply/" + id,
+                    dataType: "json"
+                }).done((res) => {   
+                    alert(res.msg);
+                    location.href = "/";
+                }).fail((err) => {    
+                    alert(err.responseJSON.msg);
+                });
+                }
+        </script>
+
+        <script>
             function deleteById(id) {
                 $.ajax({
                     type: "delete",
