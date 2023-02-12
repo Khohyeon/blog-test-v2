@@ -21,7 +21,7 @@ import shop.mtcoding.blog1.model.User;
 @Transactional
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-public class UserController {
+public class UserControllerTest {
 
     @Autowired
     private MockMvc mvc;
