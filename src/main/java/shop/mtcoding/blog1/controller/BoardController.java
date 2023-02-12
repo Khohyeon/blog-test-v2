@@ -22,6 +22,7 @@ import shop.mtcoding.blog1.handler.ex.CustomApiException;
 import shop.mtcoding.blog1.handler.ex.CustomException;
 import shop.mtcoding.blog1.model.Board;
 import shop.mtcoding.blog1.model.BoardRepository;
+import shop.mtcoding.blog1.model.ReplyRepository;
 import shop.mtcoding.blog1.model.User;
 import shop.mtcoding.blog1.service.BoardService;
 
@@ -36,6 +37,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @DeleteMapping("/board/{id}")
     public @ResponseBody ResponseEntity<?> delete(@PathVariable int id) {
@@ -61,7 +65,8 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String detail(@PathVariable int id, Model model) throws Exception {
-        model.addAttribute("dto", boardRepository.findByIdWithUser(id));
+        model.addAttribute("boardDto", boardRepository.findByIdWithUser(id));
+        model.addAttribute("replyDtos", replyRepository.findByBoardIdWithUser(id));
         return "board/detail";
     }
 

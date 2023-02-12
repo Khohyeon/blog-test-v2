@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import shop.mtcoding.blog1.dto.reply.ReplyResp.ReplyDetailRespDto;
+
 @Mapper
 public interface ReplyRepository {
+    public List<ReplyDetailRespDto> findByBoardIdWithUser(int boardId);
 
     public int insert(@Param("comment") String comment, @Param("userId") int userId,
             @Param("boardId") int boardId);
