@@ -23,7 +23,6 @@ public class ReplyService {
     @Transactional
     public void 댓글쓰기(ReplySaveReqDto replySaveReqDto, int principalId) {
         int result = replyRepository.insert(replySaveReqDto.getComment(), replySaveReqDto.getBoardId(), principalId);
-
         if (result != 1) {
             throw new CustomApiException("댓글쓰기 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
