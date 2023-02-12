@@ -13,3 +13,10 @@ create table board_tb(
     user_id int,
     created_at timestamp
 );
+create table reply_tb(
+    id int auto_increment primary key,
+    comment varchar(100) not null,
+    user_id int not null,
+    board_id int not null,
+    created_at timestamp
+);
