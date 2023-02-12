@@ -13,7 +13,7 @@ import shop.mtcoding.blog1.model.ReplyRepository;
 
 @Transactional(readOnly = true)
 @Service
-public class ReplyController {
+public class ReplyService {
 
     @Autowired
     private ReplyRepository replyRepository;
